@@ -21,6 +21,7 @@ values
   ('Andrey', 4, 20), 
   ('Olga', 1, 600000), 
   ('Anna', 1, 1600000);
+ 
 create table levels(
   id serial primary key, 
   level_name varchar(30) not null unique
@@ -94,4 +95,16 @@ values
     проставить skill 2000000 */
  
  update users set skill = 2000000 where level_id < 2;
- 
+
+
+/* 6. Выбрать user_name всех пользователей уровня admin используя подзапрос*/
+
+
+
+
+
+/* 7. Выбрать user_name всех пользователей уровня admin используя join	*/							
+select users.user_name, levels.level_name
+from users join levels 
+on users.level_id = levels.id
+where level_name = 'admin';
