@@ -3,6 +3,7 @@
 "¡d" - уникальный идентификатор клиента;
 "first name" - имя клиента;
 "last name" - фамилия клиента */
+
 drop 
   table if exists client cascade;
 create table client(
@@ -26,11 +27,13 @@ select
   * 
 from 
   client;
+ 
 /* Таблица "apartment", которая содержит информацию о продаваемых квартирах. 
 Она содержит поля:
 "Id" - уникальный идентификатор квартиры;
 "address" - адрес квартиры;
 "rooms" - количество комнат в квартире; */
+ 
 drop 
   table if exists apartment cascade;
 create table apartment(
@@ -108,16 +111,19 @@ values
     'Istanbul, BASAKSEHIR , İKİTELLİ OSB MAH. b-41, f-86', 
     1
   );
+ 
 select 
   * 
 from 
   apartment;
+ 
 /* Таблица "view", которая содержит информацию о записи на просмотр квартир клиентами. 
 Она содержит поля:
 "id" - уникальный идентификатор записи;
 "apartment id" - идентификатор квартиры,
 "client id" - идентификатор клиента, записанного на просмотр;
 "date" - дата просмотра квартиры */
+ 
 drop 
   table if exists view cascade;
 create table view(
@@ -128,16 +134,48 @@ create table view(
   foreign key (Apartment_id) references apartment(id), 
   foreign key (Client_id) references client(id)
 );
+insert into view(apartment_id, client_id, date) 
+values 
+  (11, 2, '02.04.2023'), 
+  (13, 2, '02.05.2023'), 
+  (15, 2, '02.06.2023'),
+  (1, 2, '02.02.2023'), 
+  (2, 4, '03.02.2023'), 
+  (4, 5, '02.02.2023'), 
+(5, 7, '02.02.2023'), 
+(5, 10, '02.02.2023'), 
+(12, 9, '01.31.2023'), 
+(13, 5, '01.31.2023'), 
+(14, 1, '02.28.2023'), 
+(15, 8, '11.02.2023'), 
+(16, 3, '11.02.2023'), 
+(17, 9, '11.02.2023'), 
+(17, 10, '11.02.2023');
 select 
   * 
 from 
   view;
-
  
- /* Обратите внимание, что на просмотр одной квартиры могут записаться 
+/* Обратите внимание, что на просмотр одной квартиры могут записаться 
 несколько клиентов,один клиент может записаться на просмотр нескольких квартир.
 Исходя из описания и схемы базы данных, составьте SQL-запрос, 
 результатом которого будет список фамилий клиентов, 
 записанных на просмотр двух и более трехкомнатных квартир.*/
  
- 
+select 
+  client.first_name, 
+  client.last_name, 
+  apartment.rooms, 
+  count(client.id) as Attepmt 
+from 
+  client 
+  join view on view.client_id = client.id 
+  join apartment on apartment.id = view.apartment_id 
+where 
+  apartment.rooms = 3 
+group by 
+  client.first_name, 
+  client.last_name, 
+  apartment.rooms 
+having 
+  count(client.id) >= 2;
