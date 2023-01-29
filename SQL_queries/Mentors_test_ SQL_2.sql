@@ -166,7 +166,7 @@ select
   client.first_name, 
   client.last_name, 
   apartment.rooms, 
-  count(client.id) as Attepmt 
+  count(view.apartment_id) as Attepmt 
 from 
   client 
   join view on view.client_id = client.id 
@@ -178,4 +178,4 @@ group by
   client.last_name, 
   apartment.rooms 
 having 
-  count(client.id) >= 2;
+  count(view.apartment_id) >= 2;

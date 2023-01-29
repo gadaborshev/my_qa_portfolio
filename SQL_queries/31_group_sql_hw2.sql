@@ -3,19 +3,16 @@
 - id. serial,  primary key,
 - employee_name. Varchar(50), not null
 Наполнить таблицу employee 70 строками.*/
-
+drop table employees cascade;
 create table employees(
   id serial primary key, 
-  employye_name varchar(50) not null
+  employee_name varchar(50) not null
 );
 
 
-select 
-  * 
-from 
-  employees;
+select * from employees;
 
-insert into employees(employye_name) 
+insert into employees(employee_name) 
 values 
   ('Ruslan1'), 
   ('Ruslan2'), 
@@ -109,7 +106,7 @@ values
 - 2300
 - 2400
 - 2500 */
-
+drop table salary cascade;
 create table salary(
   id serial primary key, monthly_salary int not null
 );
@@ -142,26 +139,24 @@ values
 - salary_id. Int, not null
 Наполнить таблицу employee_salary 40 строками:
 - в 10 строк из 40 вставить несуществующие employee_id*/
-
+drop table employee_salary;
 create table employee_salary(
-  id serial primary key, employee_id int not null unique, 
+  id serial primary key, 
+  employee_id int not null unique, 
   salary_id int not null
 );
-select 
-  * 
-from 
-  employee_salary;
+select * from employee_salary;
 
 insert into employee_salary(employee_id, salary_id) 
 values 
   (3, 7), 
   (1, 4), 
   (5, 9), 
-  (40, 13), 
+  (40, 4), 
   (23, 4), 
   (11, 2), 
   (52, 11), 
-  (15, 13), 
+  (15, 2), 
   (26, 4), 
   (16, 1), 
   (33, 7), 
@@ -170,15 +165,15 @@ values
   (68, 2), 
   (66, 3), 
   (64, 4), 
-  (62, 5), 
-  (60, 6), 
+  (62, 2), 
+  (60, 3), 
   (58, 7), 
   (56, 8), 
   (54, 9), 
   (51, 10), 
   (50, 11), 
   (48, 12), 
-  (46, 13), 
+  (46, 2), 
   (44, 14), 
   (42, 15), 
   (41, 16), 
@@ -188,12 +183,12 @@ values
   (73, 2), 
   (75, 3), 
   (77, 4), 
-  (79, 5), 
-  (72, 6), 
+  (79, 4), 
+  (72, 7), 
   (74, 10), 
   (76, 11), 
   (78, 12), 
-  (80, 13);
+  (80, 8);
 
 
 
@@ -204,22 +199,20 @@ values
 Наполнить таблицу roles 20 строками:*/
 
 
-
+ drop table roles;
  create table roles(
-  id serial primary key, role_name int not null unique
+  id serial primary key, 
+  role_name int not null unique
 );
-ALTER TABLE 
-  roles ALTER COLUMN role_name VARCHAR(30); -- отработало с ошибкой, пошел пути дропа 
+ALTER TABLE roles 
+ALTER COLUMN role_name type varchar(30); -- отработало с ошибкой, пошел пути дропа 
 drop 
   table roles;
 create table roles(
   id serial primary key, 
   role_name VARCHAR(30) not null unique
 );
-select 
-  * 
-from 
-  roles;
+select * from roles;
 insert into roles(role_name) 
 values 
   ('Junior Python developer'), 
@@ -255,15 +248,17 @@ values
 - employee_id. Int, not null, unique (внешний ключ для таблицы employees, поле id)
 - role_id. Int, not null (внешний ключ для таблицы roles, поле id)
 Наполнить таблицу roles_employee 40 строками:*/
-
+ drop table roles_employee cascade;
  create table roles_employee(
-  id serial primary key, employee_id int not null unique, 
-  role_id int not null
+  id serial primary key, 
+  employee_id int not null unique, 
+  role_id int not null,
+  foreign key (employee_id) references employees(id),
+  foreign key (role_id) references roles(id)
 );
-select 
-  * 
-from 
-  roles_employee;
+
+select * from roles_employee;
+
 insert into roles_employee (employee_id, role_id) 
 values 
   (7, 2), 
