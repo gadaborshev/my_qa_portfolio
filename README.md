@@ -11,5 +11,5 @@
 >- [**Домашка_3**](http://example.com/link "Я ссылка")
 
 >### После  закрепил полученные знания на курсе "Git & GitHub for QA Engineer + portfolio creation":
->- [**Cертификат**](https://www.udemy.com/certificate/UC-38672ec9-d000-4a90-9e41-ac2f58d62c39/)
+>- [**Cертификат**](https://udemy-certificate.s3.amazonaws.com/image/UC-38672ec9-d000-4a90-9e41-ac2f58d62c39.jpg?v=1674062717000)
 
