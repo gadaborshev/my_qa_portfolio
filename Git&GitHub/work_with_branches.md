@@ -1,6 +1,6 @@
 #### 1. На локальном репозитории сделать ветки для:
-> AndroidStudio
-			>> git branch AndroidStudio
+**AndroidStudio**
+	> git branch AndroidStudio
  
 > Bug_reports
 			>> git branch Bug_reports
@@ -32,4 +32,3 @@
   
   
 #### 2. Запушить все ветки на внешний репозиторий
-			
